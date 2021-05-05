@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+// import drawField from "./scripts/helpers"
+import { drawField as drawField } from "./scripts/helpers"
+import React from "react"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class Cow extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      text: "hello world!!!",
+      coordinates: { x: 2, y: 2, facing: "n" },
+      // field: drawField(this.state.coordinates),
+      field: drawField({ x: 2, y: 2, facing: "n" }),
+    }
+  }
+
+  render() {
+    return (
+      <>
+        {console.log("field " + this.state.field)}
+        {console.log("coords " + this.state.coordinates.facing)}
+        <div>Field:</div>
+        <table>
+          {this.state.field.map((row) => (
+            <tr>
+              {row.map((square) => (
+                <td className="field-squares">{square}</td>
+              ))}
+            </tr>
+          ))}
+        </table>
+      </>
+    )
+  }
 }
 
-export default App;
+export default Cow
+
+// to do:
+// icons / graphics ?
+// final position or "trace the movement"?
+
+// directions input? maybe some LRBF buttons, queue them up and then click "go"
+// controller() needs to call drawField() but it has to update state coordinates
