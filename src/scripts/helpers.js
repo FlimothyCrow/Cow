@@ -21,7 +21,7 @@ export function rotationParse(position, movement) {
 
 export function movementParse(currentPosition, movement) {
   let positionToReturn = currentPosition
-  let current = { x: currentPosition.x, y: currentPosition.y, facing: currentPosition.facing }
+  let current = Object.assign({}, currentPosition)
   if (movement === "f") {
     if (currentPosition.facing === "n") {
       positionToReturn.x -= 1
