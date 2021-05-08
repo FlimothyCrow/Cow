@@ -1,4 +1,4 @@
-import { drawField, movementParse, rotationParse } from "./helpers.js"
+import { cowMotionController, drawField, movementParse, rotationParse } from "./helpers.js"
 
 test("drawField 0", () => {
   var results = drawField({ x: 2, y: 2, facing: "e" })
@@ -138,16 +138,26 @@ test("movementParse 10", () => {
   expect(results).toEqual({ x: 4, y: 4, facing: "s" })
 })
 
-// test("moveController 0", () => {
-//   var results = movementParse(["f", "l", "f", "r", "b"])
-//   // console.log(results)
-//   expect(results).toEqual([
-//     ["0", "0", "0", "0", "0"],
-//     ["0", "0", "0", "0", "0"],
-//     ["0", "^", "0", "0", "0"],
-//     ["0", "0", "0", "0", "0"],
-//     ["0", "0", "0", "0", "0"],
-//   ])
-// })
+test("cowMotionController 0", () => {
+  var results = cowMotionController({ x: 2, y: 2, facing: "n" }, "f")
+  // console.log(results)
+  expect(results).toEqual({ x: 1, y: 2, facing: "n" })
+})
 
-// [f, b, r, b, l, f]
+test("cowMotionController 1", () => {
+  var results = cowMotionController({ x: 2, y: 2, facing: "n" }, "b")
+  // console.log(results)
+  expect(results).toEqual({ x: 3, y: 2, facing: "n" })
+})
+
+test("cowMotionController 2", () => {
+  var results = cowMotionController({ x: 2, y: 2, facing: "n" }, "r")
+  // console.log(results)
+  expect(results).toEqual({ x: 2, y: 2, facing: "e" })
+})
+
+test("cowMotionController 3", () => {
+  var results = cowMotionController({ x: 2, y: 2, facing: "n" }, "l")
+  // console.log(results)
+  expect(results).toEqual({ x: 2, y: 2, facing: "w" })
+})

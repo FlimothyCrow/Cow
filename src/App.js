@@ -1,5 +1,5 @@
 import "./App.css"
-import { drawField as drawField, movementParse, rotationParse } from "./scripts/helpers"
+import { drawField, movementParse, rotationParse } from "./scripts/helpers"
 import React from "react"
 
 class Cow extends React.Component {
@@ -16,17 +16,21 @@ class Cow extends React.Component {
     let field = drawField(this.state.coordinates)
     return (
       <>
-        {console.log("field " + field)}
-        {console.log("coords " + this.state.coordinates.facing)}
+        {/* {console.log("field " + field)} */}
+        {/* {console.log("coords " + this.state.coordinates.facing)} */}
         <div>Field:</div>
         <table>
-          {field.map((row) => (
-            <tr>
-              {row.map((square) => (
-                <td className="field-squares">{square}</td>
-              ))}
-            </tr>
-          ))}
+          <tbody>
+            {field.map((row, idx) => (
+              <tr key={idx + row}>
+                {row.map((square, idx) => (
+                  <td key={idx + square} className="field-squares">
+                    {square}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
         </table>
         <button onClick={() => this.setState({ coordinates: rotationParse(this.state.coordinates, "l") })}>
           rotate left

@@ -61,3 +61,13 @@ export function drawField(currentPosition) {
   field[currentPosition.x][currentPosition.y] = objOfDirections[currentPosition.facing]
   return field
 }
+
+export function cowMotionController(coordinates, instruction) {
+  if (instruction === "f" || instruction === "b") {
+    return movementParse(coordinates, instruction)
+  } else if (instruction === "r" || instruction === "l") {
+    return rotationParse(coordinates, instruction)
+  }
+
+  // return coordinates
+}
