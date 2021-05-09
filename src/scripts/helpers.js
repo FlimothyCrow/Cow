@@ -1,5 +1,5 @@
 export function rotationParse(position, movement) {
-  let positionToReturn = position
+  let positionToReturn = Object.assign({}, position)
   let compassArray = ["n", "e", "s", "w"]
   if (movement === "r") {
     if (!compassArray[compassArray.indexOf(position.facing) + 1]) {
@@ -20,7 +20,7 @@ export function rotationParse(position, movement) {
 }
 
 export function movementParse(currentPosition, movement) {
-  let positionToReturn = currentPosition
+  let positionToReturn = Object.assign({}, currentPosition)
   let current = Object.assign({}, currentPosition)
   if (movement === "f") {
     if (currentPosition.facing === "n") {
@@ -53,6 +53,14 @@ export function movementParse(currentPosition, movement) {
   }
 }
 
+export function cowMotionController(coordinates, instruction) {
+  if (instruction === "f" || instruction === "b") {
+    return movementParse(coordinates, instruction)
+  } else if (instruction === "r" || instruction === "l") {
+    return rotationParse(coordinates, instruction)
+  }
+}
+
 export function drawField(currentPosition) {
   let objOfDirections = { n: "^", e: ">", s: "v", w: "<" }
   let field = Array(5)
@@ -60,14 +68,4 @@ export function drawField(currentPosition) {
     .map((x) => Array(5).fill("0"))
   field[currentPosition.x][currentPosition.y] = objOfDirections[currentPosition.facing]
   return field
-}
-
-export function cowMotionController(coordinates, instruction) {
-  if (instruction === "f" || instruction === "b") {
-    return movementParse(coordinates, instruction)
-  } else if (instruction === "r" || instruction === "l") {
-    return rotationParse(coordinates, instruction)
-  }
-
-  // return coordinates
 }
